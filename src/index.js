@@ -13,15 +13,15 @@ import createHistory from "history/createBrowserHistory";
 
 import firebase from "firebase";
 
-import Dashboard from "./containers/Dashboard";
+import Profile from "./containers/Profile";
 
 var config = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: ""
+  apiKey: "AIzaSyAAdoKfcsGEs6l7M2TH0q3NhHDv4KtVjoc",
+  authDomain: "chlgr-97821.firebaseapp.com",
+  databaseURL: "https://chlgr-97821.firebaseio.com",
+  projectId: "chlgr-97821",
+  storageBucket: "chlgr-97821.appspot.com",
+  messagingSenderId: "1068009099343"
 };
 
 firebase.initializeApp(config);

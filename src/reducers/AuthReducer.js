@@ -10,7 +10,7 @@ export default function auth(state = initialState, action) {
     case "AUTH_USER":
       return {
         ...state,
-        authenticated: false,
+        authenticated: action.payload,
         error: null,
         loading: true
       };

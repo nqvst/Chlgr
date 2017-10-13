@@ -11,7 +11,7 @@ import {
 
 import { withStyles } from "material-ui/styles";
 
-import Dashboard from "./Dashboard";
+import Profile from "./Profile";
 import Login from "./Login";
 import Signup from "./SignUp";
 import Home from "./Home";
@@ -24,9 +24,9 @@ class App extends Component {
         <div>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">login</Link></li>
-            <li><Link to="/signup">signup</Link></li>
-            <li><Link to="/dashboard">dashboard</Link></li>
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/signup">Signup</Link></li>
+            <li><Link to="/profile">Profile</Link></li>
           </ul>
 
           <hr/>
@@ -34,7 +34,7 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={Signup}/>
-          <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/profile" component={Profile}/>
         </div>
       </Router>
 
