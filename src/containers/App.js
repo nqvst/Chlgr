@@ -19,7 +19,7 @@ import Home from "./Home";
 class App extends Component {
   render() {
     const { classes } = this.props;
-    return <div className="App">
+    return <div className="App" style={{ maxWidth: '640px', margin: '0 auto'}}>
       <Router>
         <div>
           <ul>
@@ -29,7 +29,6 @@ class App extends Component {
             <li><Link to="/profile">Profile</Link></li>
           </ul>
 
-          <hr/>
 
           <Route exact path="/" component={Home}/>
           <Route path="/login" component={Login}/>
