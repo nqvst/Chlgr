@@ -13,8 +13,6 @@ import createHistory from "history/createBrowserHistory";
 
 import firebase from "firebase";
 
-import Profile from "./containers/Profile";
-
 var config = {
   apiKey: "AIzaSyAAdoKfcsGEs6l7M2TH0q3NhHDv4KtVjoc",
   authDomain: "chlgr-97821.firebaseapp.com",
