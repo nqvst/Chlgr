@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import styles from './Home.css';
+import injectSheet from 'react-jss';
+
+const styles = {
+  root: {
+    backgroundColor: '222',
+  },
+};
 
 class Home extends Component {
   render() {
-    console.log('styles:', styles);
+    const { classes } = this.props;
 
     return (
-      <div className={styles.root}>
+      <div className={classes.root}>
         Home
       </div>
     );
   }
 }
 
-export default Home;
+export default injectSheet(styles)(Home);
