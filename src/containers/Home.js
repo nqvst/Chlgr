@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import styles from './Home.scss';
+import styles from './Home.css';
 
 class Home extends Component {
   render() {
+    console.log('styles:', styles);
+
     return (
-      <div>
-      Home
+      <div className={styles.root}>
+        Home
       </div>
     );
   }
