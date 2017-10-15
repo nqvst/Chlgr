@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import firebase from "firebase";
+
 import RegisterForm from '../components/RegisterForm.js';
 import { registerFirebase } from '../actions/AuthActions.js';
 
@@ -15,8 +16,6 @@ class SignUp extends Component {
     }
 }
 
-
-
 function mapStateToProps(state) {
     return {
         authenticated: state.auth.authenticated
@@ -29,7 +28,6 @@ function mapDispatchToProps(dispatch) {
             dispatch(registerFirebase(email, password, username))
         },
     }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
