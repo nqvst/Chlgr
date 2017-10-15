@@ -1,7 +1,7 @@
 {
-    "name": "react-redux-firebase-material-router-electron-starter",
-    "description": "React, redux, firebase, material, react router, electron simple starter ",
-    "author": "me",
+    "name": "Challenger",
+    "description": "wowawiwa",
+    "author": "Nina Sjöberg & Jack Enqvist",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -19,6 +19,9 @@
         "redux": "^3.7.2",
         "redux-thunk": "^2.2.0"
     },
+    "devDependencies": {
+        "redux-logger": "^3.0.6"
+    },
     "homepage": "./",
     "scripts": {
         "start": "react-scripts start",
@@ -31,7 +34,7 @@
         "dist": "npm run build && build"
     },
     "build": {
-        "appId": "com.electron.electron-with-create-react-app",
+        "appId": "com.chlgr",
         "win": {
             "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
         },

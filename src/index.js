@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./containers/App";
+import { logger } from 'redux-logger'
 import registerServiceWorker from "./registerServiceWorker";
 
 import { createStore, applyMiddleware, compose } from "redux";
@@ -39,10 +40,11 @@ const composeEnhancers =
             // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
         })
         : compose;
+    
+console.log(logger);
+const enhancer = composeEnhancers(applyMiddleware(ReduxThunk, logger));
 
-const enhancer = composeEnhancers(applyMiddleware(ReduxThunk));
-
-const store = createStore(reducers, enhancer);
+const store = createStore(reducers, enhancer,);
 
 function AppWithTheme() {
     return (
