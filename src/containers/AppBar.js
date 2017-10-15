@@ -41,7 +41,7 @@ function ButtonAppBar(props) {
             </Typography>
 
             <Button component={Link} to={'/signup'} color="contrast">SignUp</Button>
-            <Button raised component={Link} to={'/login'} >Login</Button>
+            <Button component={Link} to={'/login'} color="contrast">Login</Button>
 
           </Toolbar>
         </AppBar>

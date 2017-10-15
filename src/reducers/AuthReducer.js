@@ -8,13 +8,24 @@ const initialState = {
 
 export default function auth(state = initialState, action) {
     switch (action.type) {
-        case "AUTH_USER":
+        case "REGISTER_USER":
             return {
                 ...state,
-                authenticated: action.payload,
-                error: null,
-                loading: true
-            };
+                ...action.payload,
+            }  
+            
+        case "REGISTER_USER_SUCCESS":
+            return {
+                ...state,
+                ...action.payload,
+            }  
+        
+        case "REGISTER_USER_ERROR":
+            return {
+                ...state,
+                ...action.payload,
+            } 
+
         default:
             return state;
     }

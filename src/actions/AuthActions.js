@@ -16,6 +16,15 @@ export function signInFirebase(email, password) {
 
 export function registerFirebase(email, password, username) {
     return (dispatch) => {
+        dispatch({
+            type: "REGISTER_USER",
+            payload: {
+                authenticated: false,
+                error: null,
+                user: null,
+                loading: true
+            }
+        })
         return firebase.auth()
             .createUserWithEmailAndPassword(email, password)//creates a user in firebase Authentication
             .then((user) => {
@@ -28,15 +37,30 @@ export function registerFirebase(email, password, username) {
                     return user;
                 }).then((user) => {
                     dispatch({
-                        type: "AUTH_USER",
+                        type: "REGISTER_USER_SUCCESS",
                         payload: {
-                            email: user.email,
-                            username: user.displayName,
-                            userId: user.uid,
+                            authenticated: true,
+                            error: null,
+                            user: {
+                                email: user.email,
+                                username: user.displayName,
+                                userId: user.uid,
+                            },
+                            loading: false
                         }
                     })
                 })
-            .catch(error => console.log(error));
+            .catch(error => { 
+                dispatch({
+                    type: "REGISTER_USER_ERROR",
+                    payload: {
+                        authenticated: false,
+                        error: error,
+                        user: null,
+                        loading: false
+                    }
+                })
+                console.log(error)});
         });
     }
 }
