@@ -2,7 +2,7 @@ import firebase from "firebase";
 
 export function signInFirebase(email, password) {
     return (dispatch) => {
-        return firebase.auth() //logging in a user in firebase Authentication 
+        return firebase.auth() //logging in a user in firebase Authentication
             .signInWithEmailAndPassword(email, password) //from state?
             .then((user) => {
                 if(user){
@@ -10,14 +10,14 @@ export function signInFirebase(email, password) {
                 }
             })
             .catch(error => console.log(error.code));
-    }        
+    }
 }
 
 
 export function registerFirebase(email, password, username) {
     return (dispatch) => {
         return firebase.auth()
-            .createUserWithEmailAndPassword(email, password)//creates a user in firebase Authentication 
+            .createUserWithEmailAndPassword(email, password)//creates a user in firebase Authentication
             .then((user) => {
                 user.updateProfile({ //sets the displayName in Firebase to the username provided by the user during register
                     displayName: username,
@@ -40,4 +40,3 @@ export function registerFirebase(email, password, username) {
         });
     }
 }
-  
