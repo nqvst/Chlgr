@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import firebase from "firebase";
 
 import RegisterForm from '../components/RegisterForm.js';
 import { registerFirebase } from '../actions/AuthActions.js';

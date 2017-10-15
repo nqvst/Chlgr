@@ -7,19 +7,16 @@ import registerServiceWorker from "./registerServiceWorker";
 
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import ReduxThunk from "redux-thunk";
+import thunk from "redux-thunk";
 import reducers from "./reducers";
 
 import createHistory from "history/createBrowserHistory";
 
-import Theme from './styles/Theme';
+import theme from './styles/Theme';
 
 import { MuiThemeProvider } from 'material-ui/styles';
 
-
 import firebase from "firebase";
-
-import Profile from "./containers/Profile";
 
 var config = {
     apiKey: "AIzaSyAAdoKfcsGEs6l7M2TH0q3NhHDv4KtVjoc",
@@ -40,23 +37,16 @@ const composeEnhancers =
             // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
         })
         : compose;
-    
-console.log(logger);
-const enhancer = composeEnhancers(applyMiddleware(ReduxThunk, logger));
+
+const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 
 const store = createStore(reducers, enhancer,);
 
-function AppWithTheme() {
-    return (
-        <MuiThemeProvider theme={Theme}>
-            <App />
-        </MuiThemeProvider>
-    );
-}
-
 ReactDOM.render(
     <Provider store={store}>
-        <AppWithTheme />
+        <MuiThemeProvider theme={theme}>
+            <App history={history}/>
+        </MuiThemeProvider>
     </Provider>,
     document.getElementById("root")
 );
