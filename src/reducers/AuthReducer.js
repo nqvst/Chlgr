@@ -1,3 +1,4 @@
+
 const initialState = {
   authenticated: false,
   error: null,
