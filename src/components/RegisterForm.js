@@ -31,7 +31,6 @@ class RegisterForm extends Component{
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
         this.props.registerFirebase(this.state.email, this.state.password, this.state.username);
     }
 

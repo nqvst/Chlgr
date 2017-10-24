@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import RegisterForm from '../components/RegisterForm.js';
 import { registerFirebase } from '../actions/AuthActions.js';
 
-class SignUp extends Component {
+class Register extends Component {
 
     render() {
         const { authenticated, user } = this.props;
@@ -37,5 +37,5 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
 

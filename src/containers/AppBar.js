@@ -49,7 +49,7 @@ function ButtonAppBar(props) {
             <Button component={Link} to={'/logout'} color="contrast">Logout</Button>
           }
           { !authenticated &&
-            <Button component={Link} to={'/signup'} color="contrast">SignUp</Button>
+            <Button component={Link} to={'/register'} color="contrast">Register</Button>
           }
         </Toolbar>
       </AppBar>

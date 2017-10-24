@@ -13,7 +13,7 @@ import {
 import Profile from "./Profile";
 import Login from "./Login";
 import Logout from "./Logout";
-import Signup from "./SignUp";
+import Register from "./Register";
 import Home from "./Home";
 
 import AppBar from './AppBar';
@@ -40,7 +40,7 @@ class App extends Component {
                             <Route exact path="/" component={Home} />
                             <Route path="/login" component={Login} />
                             <Route path="/logout" component={Logout} />
-                            <Route path="/signup" component={Signup} />
+                            <Route path="/register" component={Register} />
                             <Route path="/profile" component={Profile} />
                         </div>
                     </div>
