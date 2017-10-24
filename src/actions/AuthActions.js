@@ -1,19 +1,5 @@
 import firebase from "firebase";
 
-export function signInFirebase(email, password) {
-    return (dispatch) => {
-        return firebase.auth() //logging in a user in firebase Authentication
-            .signInWithEmailAndPassword(email, password) //from state?
-            .then((user) => {
-                if(user){
-                    console.log(user);
-                }
-            })
-            .catch(error => console.log(error.code));
-    }
-}
-
-
 export function registerFirebase(email, password, username) {
     return (dispatch) => {
         dispatch({
@@ -60,7 +46,91 @@ export function registerFirebase(email, password, username) {
                         loading: false
                     }
                 })
-                console.log(error)});
+                console.log(error)
+            });
         });
     }
 }
+
+export function loginFirebase(email, password) {
+    return (dispatch) => {
+        dispatch({
+            type: "LOGIN_USER",
+            payload: {
+                authenticated: false,
+                error: null,
+                user: null,
+                loading: true
+            }
+        })
+        return firebase.auth() //logging in a user in firebase Authentication
+            .signInWithEmailAndPassword(email, password)
+            .then((user) => {
+                if(user){
+                    console.log(user);
+                    dispatch({
+                        type: "LOGIN_USER_SUCCESS",
+                        payload: {
+                            authenticated: true,
+                            error: null,
+                            user: {
+                                email: user.email,
+                                username: user.displayName,
+                                userId: user.uid,
+                            },
+                            loading: false
+                        }
+                    })
+                }
+            })
+            .catch(error => { 
+                dispatch({
+                    type: "LOGIN_USER_ERROR",
+                    payload: {
+                        authenticated: false,
+                        error: error,
+                        user: null,
+                        loading: false
+                    }
+                })
+                console.log(error)
+            });
+    }
+}
+
+
+
+export function logoutFirebase() {
+    return (dispatch) => {
+        //signout Firebase
+        firebase
+        .auth()
+        .signOut()
+        .then(() => {
+            dispatch({
+                type: "LOGOUT_USER",
+                payload: {
+                    authenticated: false,
+                    error: null,
+                    user: null,
+                    loading: false
+                }
+            })
+        })
+        .catch(error => { 
+            dispatch({
+                type: "LOGOUT_USER_ERROR",
+                payload: {
+                    authenticated: false,
+                    error: error,
+                    user: null,
+                    loading: false
+                }
+            })
+            console.log(error)
+        }); 
+
+    
+        
+    }
+}    

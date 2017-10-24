@@ -12,6 +12,7 @@ import {
 
 import Profile from "./Profile";
 import Login from "./Login";
+import Logout from "./Logout";
 import Signup from "./SignUp";
 import Home from "./Home";
 
@@ -38,6 +39,7 @@ class App extends Component {
                         <div className={classes.container}>
                             <Route exact path="/" component={Home} />
                             <Route path="/login" component={Login} />
+                            <Route path="/logout" component={Logout} />
                             <Route path="/signup" component={Signup} />
                             <Route path="/profile" component={Profile} />
                         </div>
@@ -58,8 +60,5 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(withStyles(styles)(App));
+export default connect( mapStateToProps,mapDispatchToProps)(withStyles(styles)(App));
 

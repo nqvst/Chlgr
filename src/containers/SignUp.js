@@ -7,9 +7,16 @@ import { registerFirebase } from '../actions/AuthActions.js';
 class SignUp extends Component {
 
     render() {
+        const { authenticated, user } = this.props;
+
         return (
             <div>
-                <RegisterForm registerFirebase={this.props.registerFirebase} />
+                { !authenticated &&
+                    <RegisterForm registerFirebase={this.props.registerFirebase} />
+                }
+                { authenticated &&
+                    <h2>You are logged in as: { user.username }</h2>
+                }
             </div>
         );
     }
@@ -17,7 +24,8 @@ class SignUp extends Component {
 
 function mapStateToProps(state) {
     return {
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        user: state.auth.user
     }
 }
 

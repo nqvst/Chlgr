@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -21,26 +22,47 @@ const styles = theme => ({
 
 
 function ButtonAppBar(props) {
-    const { classes } = props;
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+  const { classes, authenticated, user } = props;
 
-            <Typography type="title" color="inherit" className={classes.flex}>
-                Challenger
-            </Typography>
+  console.log(authenticated);
+  console.log(user);
+ 
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
 
+          <Typography type="title" color="inherit" className={classes.flex}>
+              Challenger
+          </Typography>
+
+          { !authenticated &&
+          <Button component={Link} to={'/login'} color="contrast">Login</Button>
+          }
+          { user &&
+            <p>{user.username}</p>
+          }
+          { authenticated &&
+            <Button component={Link} to={'/logout'} color="contrast">Logout</Button>
+          }
+          { !authenticated &&
             <Button component={Link} to={'/signup'} color="contrast">SignUp</Button>
-            <Button component={Link} to={'/login'} color="contrast">Login</Button>
+          }
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
 
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated,
+    user: state.auth.user
   }
+}
 
-export default withStyles(styles)(ButtonAppBar);
+export default connect(mapStateToProps)(withStyles(styles)(ButtonAppBar));
+
