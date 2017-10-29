@@ -11,49 +11,74 @@ export default function auth(state = initialState, action) {
         case "REGISTER_USER":
             return {
                 ...state,
-                ...action.payload,
-            }  
-            
+                authenticated: false,
+                error: null,
+                user: null,
+                loading: true,
+            }
         case "REGISTER_USER_SUCCESS":
             return {
                 ...state,
-                ...action.payload,
-            }  
-        
+                authenticated: true,
+                error: null,
+                loading: false,
+                user: action.payload,
+            }
+
         case "REGISTER_USER_ERROR":
             return {
                 ...state,
-                ...action.payload,
-            } 
+                authenticated: false,
+                user: null,
+                loading: false,
+                error: action.payload,
+            }
 
         case "LOGIN_USER":
             return {
                 ...state,
-                ...action.payload,
+                authenticated: false,
+                error: null,
+                user: null,
+                loading: true,
             }
-        
+
         case "LOGIN_USER_SUCCESS":
             return {
                 ...state,
-                ...action.payload,
+                ...state,
+                authenticated: true,
+                error: null,
+                loading: false,
+                user: action.payload,
             }
-        
+
         case "LOGIN_USER_ERROR":
             return {
                 ...state,
-                ...action.payload,
+                authenticated: false,
+                user: null,
+                loading: false,
+                error: action.payload,
             }
-        
+
         case "LOGOUT_USER":
             return {
                 ...state,
-                ...action.payload,
+                authenticated: false,
+                error: null,
+                user: null,
+                loading: false,
+
             }
 
         case "LOGOUT_USER_ERROR":
             return {
                 ...state,
-                ...action.payload,
+                authenticated: false,
+                user: null,
+                loading: false,
+                error: action.payload,
             }
 
         default:
