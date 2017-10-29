@@ -3,6 +3,9 @@ const initialState = {
     description: '',
     selectedDay: '',
     category: '',
+    createdBy: '',
+    loading: false,
+    error: false,
 };
 
 export default function challengers(state = initialState, action) {

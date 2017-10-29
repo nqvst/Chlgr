@@ -1,5 +1,7 @@
 import firebase from "firebase";
 
+
+//Register user
 export function registerFirebase(email, password, username) {
     return (dispatch) => {
         dispatch({
@@ -52,6 +54,7 @@ export function registerFirebase(email, password, username) {
     }
 }
 
+//Login user
 export function loginFirebase(email, password) {
     return (dispatch) => {
         dispatch({
@@ -99,7 +102,7 @@ export function loginFirebase(email, password) {
 }
 
 
-
+//Logout user 
 export function logoutFirebase() {
     return (dispatch) => {
         //signout Firebase
@@ -128,9 +131,46 @@ export function logoutFirebase() {
                 }
             })
             console.log(error)
-        }); 
-
-    
-        
+        });  
     }
-}    
+}   
+
+
+//Add challenge (must also be done to redux!!!)
+export function addChallenge(challengeObj) {
+
+    //to avoid write firebase.database() all the time in the code, now we can write db instead
+    const db = firebase.database();
+
+    return (dispatch) => {
+        dispatch({
+            type: "ADD_CHALLENGE",
+            payload: {
+                error: null,
+                loading: true
+            }
+        })
+        return db.ref('challenges')
+        .push(challengeObj)
+        .then(() => {
+            dispatch({
+                type: "ADD_CHALLENGE",
+                payload: {
+                    error: null,
+                    loading: false
+                }
+            })
+        })
+        .catch(error => { 
+            dispatch({
+                type: "ADD_CHALLENGE",
+                payload: {
+                    error: error,
+                    loading: false
+                }
+            })
+            console.log(error)
+        });  
+    }
+  
+}
