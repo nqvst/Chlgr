@@ -6,6 +6,9 @@ import Card from 'material-ui/Card';
 import DayPicker from '../DayPicker.js'; 
 import { registerFirebase } from '../actions/AuthActions.js';
 
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
+
 
 const styles = theme => ({
     container: {
@@ -27,8 +30,11 @@ class CreateChallengeForm extends Component{
         description: '',
         createdBy: '',
         endDay: '',
-        //category: '',
-        error: false
+        category: '',
+        errorCreate: false,
+        errorCreateName: '',
+        errorCreateDescription: '',
+        errorCreateCategory: '',
     }
 
     onChange = (event) => {
@@ -37,10 +43,14 @@ class CreateChallengeForm extends Component{
         this.setState({[event.target.name]: event.target.value})
     }
 
+    //sets the input from the calendar to state
+    handleDateClick = (event) => {
+        let endDate = Date.parse(event)
+        this.setState({endDay: endDate})
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
-
-        
 
         //creating errormessages based on input values from the registerform 
         let createNameMess = '';
@@ -59,11 +69,11 @@ class CreateChallengeForm extends Component{
             error = true;
             console.log(error);
         }
-        // if(!this.state.category){
-        //     createCategoryMess = 'you must select a category!';
-        //     error = true;
-        //     console.log(error);
-        // }    
+        if(!this.state.category){
+            createCategoryMess = 'you must select a category!';
+            error = true;
+            console.log(error);
+        }    
         if(this.state.heading && this.state.heading.length > 40){
             createNameMess = 'The heading can not be more than 40 characthers long!';
             error = true;
@@ -83,17 +93,16 @@ class CreateChallengeForm extends Component{
                 heading: this.state.heading,
                 description: this.state.description,
                 createdBy: this.props.user.username,
-                //category: this.state.category,
-                endDate: this.state.selectedDay
+                category: this.state.category,
+                endDate: this.state.endDay
             }
             //call firebase function 'addChallenge' in AuthAction and pass in the challenge obj. 
             this.props.addChallenge(challengeObj);
         }
         this.setState({errorCreateName: createNameMess})
         this.setState({errorCreateDescription: createDescriptionMess})
-        //this.setState({errorCreateCategory: createCategoryMess})
+        this.setState({errorCreateCategory: createCategoryMess})
         this.setState({error: error})
-        this.setState({selectedType: 'created by Me'})    
     }
 
     render(){
@@ -116,19 +125,18 @@ class CreateChallengeForm extends Component{
                         <div className="create-div">
                             <p>End date *(optional)</p>
                             <div className="calendar-background">
-                                <DayPicker onDayClick={this.onDayClick}/>
+                                <DayPicker onDayClick={this.handleDateClick}/>
                             </div>
                         </div>
-                        {/*
-                        <div>
-                            <label>Select a category</label>
-                            <div className="create-input">
-                                <a href='#' name='category' value='physical' onClick={this.addCategory}>physical</a>
-                                <a href='#' name='category' value='mental' onClick={this.addCategory}>mental</a>
-                                <a href='#' name='category' value='social' onClick={this.addCategory}>social</a>
-                           </div> 
-                        </div>
-                        */}
+                        <RadioGroup
+                            onChange={this.onChange}
+                            value={this.state.category}
+                            name="category"
+                            aria-label="Select Category">
+                            <FormControlLabel value="physical" control={<Radio />} label="physical" />
+                            <FormControlLabel value="mental" control={<Radio />} label="mental" />
+                            <FormControlLabel value="social" control={<Radio />} label="social" />
+                        </RadioGroup>
                         <div className={classes.container}>
                             <Button color="inherit" raised onClick={this.onSubmit}>Create</Button>
                         </div>
