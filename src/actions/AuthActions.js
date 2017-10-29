@@ -38,15 +38,10 @@ export function registerFirebase(email, password, username) {
                         }
                     })
                 })
-            .catch(error => { 
+            .catch(error => {
                 dispatch({
                     type: "REGISTER_USER_ERROR",
-                    payload: {
-                        authenticated: false,
-                        error: error,
-                        user: null,
-                        loading: false
-                    }
+                    payload: error,
                 })
                 console.log(error)
             });
@@ -59,12 +54,6 @@ export function loginFirebase(email, password) {
     return (dispatch) => {
         dispatch({
             type: "LOGIN_USER",
-            payload: {
-                authenticated: false,
-                error: null,
-                user: null,
-                loading: true
-            }
         })
         return firebase.auth() //logging in a user in firebase Authentication
             .signInWithEmailAndPassword(email, password)
@@ -74,28 +63,18 @@ export function loginFirebase(email, password) {
                     dispatch({
                         type: "LOGIN_USER_SUCCESS",
                         payload: {
-                            authenticated: true,
-                            error: null,
-                            user: {
-                                email: user.email,
-                                username: user.displayName,
-                                userId: user.uid,
-                            },
-                            loading: false
+                            email: user.email,
+                            username: user.displayName,
+                            userId: user.uid,
                         }
-                    })
+                    });
                 }
             })
-            .catch(error => { 
+            .catch(error => {
                 dispatch({
                     type: "LOGIN_USER_ERROR",
-                    payload: {
-                        authenticated: false,
-                        error: error,
-                        user: null,
-                        loading: false
-                    }
-                })
+                    payload: error,
+                });
                 console.log(error)
             });
     }
@@ -112,23 +91,12 @@ export function logoutFirebase() {
         .then(() => {
             dispatch({
                 type: "LOGOUT_USER",
-                payload: {
-                    authenticated: false,
-                    error: null,
-                    user: null,
-                    loading: false
-                }
             })
         })
-        .catch(error => { 
+        .catch(error => {
             dispatch({
                 type: "LOGOUT_USER_ERROR",
-                payload: {
-                    authenticated: false,
-                    error: error,
-                    user: null,
-                    loading: false
-                }
+                payload:  error,
             })
             console.log(error)
         });  
@@ -172,5 +140,4 @@ export function addChallenge(challengeObj) {
             console.log(error)
         });  
     }
-  
 }
