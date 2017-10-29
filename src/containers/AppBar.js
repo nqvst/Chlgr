@@ -31,13 +31,15 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+          {/* <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
 
           <Typography type="title" color="inherit" className={classes.flex}>
-              Challenger
+              <Button component={Link} to={'/'} color="contrast">Challenger</Button>
           </Typography>
+
+
 
           { !authenticated &&
           <Button component={Link} to={'/login'} color="contrast">Login</Button>
