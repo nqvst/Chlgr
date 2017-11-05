@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
@@ -55,13 +54,4 @@ class ChallengeList extends React.Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-      challenges: state.challenges.all,
-      user: state.auth.user
-  }
-}
-
-
-export default connect(mapStateToProps)(withStyles(styles)(ChallengeList));
+export default withStyles(styles)(ChallengeList);

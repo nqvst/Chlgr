@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { withStyles } from 'material-ui/styles'
 import { Button } from 'material-ui';
 import CreateChallenge from './CreateChallenge.js';
@@ -22,17 +23,24 @@ class Home extends Component {
     }
 
     render() {
-        const {classes} = this.props;
+        const { classes, challenges, user } = this.props;
 
         return (
             <div>
                 <Button className={classes.button} onClick={() => this.create(true)}>Create Challenge</Button>
                 {this.state.showCreateChallengeForm && <CreateChallenge onClick={() => this.create(false)}/>}
-                <ChallengeList/>
+                <ChallengeList challenges={challenges} user={user}/>
             </div>
         );
     }
 }
 
-export default withStyles(styles)(Home);
-//export default Home;
+function mapStateToProps(state) {
+    return {
+        challenges: state.challenges.all,
+        user: state.auth.user
+    }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));
+
