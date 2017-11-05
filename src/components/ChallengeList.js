@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Challenge from './Challenge.js';
+import {acceptChallenge} from '../actions/ChallengeActions.js';
 
 const styles = theme => ({
   root: {
@@ -20,14 +22,14 @@ class ChallengeList extends React.Component {
     this.setState({ value });
   };
 
-  render() {
-    const { classes,  challenges} = this.props;
 
-    console.log(`challenges: ${challenges}` )
+  render() {
+    const { classes, challenges, user, accept } = this.props;
 
     const challengesList = challenges.map((item, index) => {
-      console.log(item.value);
-      return <Challenge key={index} {...item.value} user={this.props.currentUser} onClick={() => {this.acceptChallenge(item)}}/>
+      console.log('challenge:', {item});
+      console.log('user',{user});
+      return <Challenge key={index} {...item.value} user={user} onClick={() => {accept(item, user)}}/>
     });
 
     return (
@@ -54,4 +56,27 @@ class ChallengeList extends React.Component {
   }
 }
 
-export default withStyles(styles)(ChallengeList);
+function mapStateToProps(state) {
+  return {
+      challenges: state.challenges.all,
+      user: state.auth.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      accept: (challenge, user) => {
+        const userInfo = {
+          userId: user.userId,
+          username: user.username
+        }
+        const acpChallenge = {
+          challengeId: challenge.key
+        }
+        dispatch(acceptChallenge(acpChallenge, userInfo));
+      },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeList));
+

@@ -1,9 +1,9 @@
 
 const initialState = {
     authenticated: false,
-    error: null,
     user: null,
-    loading: false
+    loading: false,
+    error: null,
 };
 
 export default function auth(state = initialState, action) {

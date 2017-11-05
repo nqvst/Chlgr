@@ -1,17 +1,10 @@
 import firebase from "firebase";
 
-
 //Register user
 export function registerFirebase(email, password, username) {
     return (dispatch) => {
         dispatch({
             type: "REGISTER_USER",
-            payload: {
-                authenticated: false,
-                error: null,
-                user: null,
-                loading: true
-            }
         })
         return firebase.auth()
             .createUserWithEmailAndPassword(email, password)//creates a user in firebase Authentication
@@ -27,14 +20,9 @@ export function registerFirebase(email, password, username) {
                     dispatch({
                         type: "REGISTER_USER_SUCCESS",
                         payload: {
-                            authenticated: true,
-                            error: null,
-                            user: {
-                                email: user.email,
-                                username: user.displayName,
-                                userId: user.uid,
-                            },
-                            loading: false
+                            email: user.email,
+                            username: user.displayName,
+                            userId: user.uid,      
                         }
                     })
                 })
@@ -80,7 +68,6 @@ export function loginFirebase(email, password) {
     }
 }
 
-
 //Logout user 
 export function logoutFirebase() {
     return (dispatch) => {
@@ -102,42 +89,3 @@ export function logoutFirebase() {
         });  
     }
 }   
-
-
-//Add challenge
-export function addChallenge(challengeObj) {
-
-    //to avoid write firebase.database() all the time in the code, now we can write db instead
-    const db = firebase.database();
-
-    return (dispatch) => {
-        dispatch({
-            type: "ADD_CHALLENGE",
-            payload: {
-                error: null,
-                loading: true
-            }
-        })
-        return db.ref('challenges')
-        .push(challengeObj)
-        .then(() => {
-            dispatch({
-                type: "ADD_CHALLENGE",
-                payload: {
-                    error: null,
-                    loading: false
-                }
-            })
-        })
-        .catch(error => { 
-            dispatch({
-                type: "ADD_CHALLENGE",
-                payload: {
-                    error: error,
-                    loading: false
-                }
-            })
-            console.log(error)
-        });  
-    }
-}

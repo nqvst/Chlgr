@@ -24,19 +24,19 @@ export default function firebaseConnect(props) {
       key: snapshot.key
     }
     console.log(newChallenge);
-    props.addNewChallengeToState(newChallenge);      
+    props.challengeAdded(newChallenge);      
   })
 
   //Listens for when a value/object deletes from the database Firebase. callback returns the deleted object
   db.ref('challenges').on('child_removed', (snapshot) => {
     console.log(snapshot);
-    props.deleteChallengeToState(snapshot)
+    props.challegeDeleted(snapshot)
   })
 
   //Listens for when values/objects updates/changes in the database Firebase. callback returns the updated object
   db.ref('challenges').on('child_changed', (snapshot) => {
     console.log(snapshot);
-    props.updateChallengeToState(snapshot)      
+    props.challengeChanged(snapshot)      
   })
 }
 

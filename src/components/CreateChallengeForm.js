@@ -4,7 +4,7 @@ import Input from 'material-ui/Input';
 import Button from 'material-ui/Button';
 import Card from 'material-ui/Card';
 import DayPicker from '../DayPicker.js'; 
-import { registerFirebase } from '../actions/AuthActions.js';
+import { registerFirebase } from '../actions/ChallengeActions.js';
 
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';

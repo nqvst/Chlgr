@@ -1,7 +1,7 @@
 const initialState = {
     all: [],
     loading: false,
-    error: false,
+    error: null,
 };
 
 export default function challenges(state = initialState, action) {
@@ -16,13 +16,13 @@ export default function challenges(state = initialState, action) {
                 all: action.payload
             };
 
-        case "ADDL_NEW_CHALLANGE":
+        case "CHALLANGE_ADDED":
             return {
                 ...state,
                 all: [...state.all, action.payload]
             };
 
-        case "DELETE_CHALLANGE":
+        case "CHALLANGE_DELETED":
             let reversedChallegesList = (state.all).filter((item) => {
                 console.log(item.key);
                 console.log(action.payload.key);
@@ -33,8 +33,9 @@ export default function challenges(state = initialState, action) {
                 all: reversedChallegesList
             };
 
-        case "CHANGE_CHALLANGE":
+        case "CHALLANGE_CHANGED":
             let updatedChallegesList = (state.all).map((item) => { 
+                console.log(action.payload.val())
                 if(item.key === action.payload.key){ 
                     return Object.assign({}, item, {value: action.payload.val()}) //Object assign === merge the old object with the new object.
                 } else
@@ -44,7 +45,48 @@ export default function challenges(state = initialState, action) {
                 ...state,
                 all: updatedChallegesList
             };
+
+        case "ADD_CHALLENGE":
+            return {
+                ...state,
+                error: null,
+                loading: true,
+            }
         
+        case "ADD_CHALLENGE_SUCCESS":
+            return {
+                ...state,
+                error: null,
+                loading: false,
+            }
+
+        case "ADD_CHALLENGE_ERROR":
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            }
+
+        case "ACCEPT_CHALLENGE":
+            return {
+                ...state,
+                error: null,
+                loading: true,
+            }
+        
+        case "ACCEPT_CHALLENGE_SUCCESS":
+            return {
+                ...state,
+                error: null,
+                loading: false,
+            }
+
+        case "ACCEPT_CHALLENGE_ERROR":
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            }
 
         default:
         return state;

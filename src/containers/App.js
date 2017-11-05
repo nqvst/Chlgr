@@ -39,7 +39,7 @@ class App extends Component {
     
     render() {
 
-        const { classes, addNewChallengeToState, initialChallengesToState } = this.props;
+        const { classes, initialChallengesToState, challengeAdded, challegeDeleted, challengeChanged } = this.props;
         return (
             <div className="App">
                 <Router history={this.props.history}>
@@ -69,28 +69,28 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(Actions, dispatch),
-        
-        addNewChallengeToState: (challenge) => {
-            dispatch({
-              type: "ADDL_NEW_CHALLANGE",
-              payload: challenge
-            })
-          },
-          initialChallengesToState: (challenges) => {
+
+        initialChallengesToState: (challenges) => {
             dispatch({
               type: "SET_INITIAL_CHALLANGES",
               payload: challenges
             })
           },
-          deleteChallengeToState: (challenge) => {
+        challengeAdded: (challenge) => {
             dispatch({
-              type: "DELETE_CHALLANGE",
+              type: "CHALLANGE_ADDED",
               payload: challenge
             })
           },
-          updateChallengeToState: (challenge) => {
+        challegeDeleted: (challenge) => {
             dispatch({
-              type: "CHANGE_CHALLANGE",
+              type: "CHALLANGE_DELETED",
+              payload: challenge
+            })
+          },
+        challengeChanged: (challenge) => {
+            dispatch({
+              type: "CHALLANGE_CHANGED",
               payload: challenge
             })
           },

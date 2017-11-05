@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import CreateChallengeForm from '../components/CreateChallengeForm.js';
-import { addChallenge } from '../actions/AuthActions.js';
+import { addChallenge } from '../actions/ChallengeActions.js';
 
 class CreateChallenge extends Component {
 

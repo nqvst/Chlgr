@@ -12,7 +12,7 @@ class Register extends Component {
         return (
             <div>
                 { !authenticated &&
-                    <RegisterForm registerFirebase={this.props.registerFirebase} />
+                    <RegisterForm registerFirebase={this.props.register} />
                 }
                 { authenticated &&
                     <h2>You are logged in as: { user.username }</h2>
@@ -31,7 +31,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        registerFirebase: (email, password, username) => {
+        register: (email, password, username) => {
             dispatch(registerFirebase(email, password, username))
         },
     }
