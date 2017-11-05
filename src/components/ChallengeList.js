@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import Challenge from './Challenge.js';
 
 const styles = theme => ({
   root: {
@@ -20,26 +22,46 @@ class ChallengeList extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes,  challenges} = this.props;
+
+    console.log(`challenges: ${challenges}` )
+
+    const challengesList = challenges.map((item, index) => {
+      console.log(item.value);
+      return <Challenge key={index} {...item.value} user={this.props.currentUser} onClick={() => {this.acceptChallenge(item)}}/>
+    });
 
     return (
-      <Paper className={classes.root}>
-        <Tabs
-          value={this.state.value}
-          onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-        >
-          <Tab label="all" />
-          <Tab label="mental" />
-          <Tab label="physical" />
-          <Tab label="social" />
-        </Tabs>
-      </Paper>
+      <div>
+        <Paper className={classes.root}>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+          >
+            <Tab label="all" />
+            <Tab label="mental" />
+            <Tab label="physical" />
+            <Tab label="social" />
+          </Tabs>
+        </Paper>
+        <ul>
+          {challengesList}
+        </ul>
+      </div>
     );
   }
 }
 
 
-export default withStyles(styles)(ChallengeList);
+function mapStateToProps(state) {
+  return {
+      challenges: state.challenges.all,
+      user: state.auth.user
+  }
+}
+
+
+export default connect(mapStateToProps)(withStyles(styles)(ChallengeList));

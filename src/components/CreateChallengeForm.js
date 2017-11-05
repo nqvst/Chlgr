@@ -11,17 +11,31 @@ import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'materi
 
 
 const styles = theme => ({
+    wrapper: {
+        width: '350px',
+        margin: '0 auto',
+    },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
         margin: '20px',
     },
     input: {
-        flex: 1,
+        width: '250px',
     },
     card: {
         padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
+    button: {
+        alignSelf: 'flex-end',
+    },
+    category: {
+        display: 'flex',
+        flexDirection: 'row',
+    }
 });
 
 class CreateChallengeForm extends Component{
@@ -111,24 +125,23 @@ class CreateChallengeForm extends Component{
         console.log(this.props.user);
 
         return (
-            <div>
+            <div className={classes.wrapper}>
                 <h1>Create a Challenge</h1>
                 <form>
                     <Card className={classes.card}>
-                        <Button color="inherit" raised onClick={this.props.onClick}>X</Button>
+                        <Button className={classes.button} onClick={this.props.onClick}>Close</Button>
                         <div className={classes.container}>
                             <Input className={classes.input} type="text" name="heading" onChange={this.onChange} placeholder="Challenge name"/>
                         </div>
                         <div className={classes.container}>
                             <Input className={classes.input} type="text" name="description" onChange={this.onChange} style={{height: "10rem"}} value={this.valueDesc} placeholder="Description"/>
                         </div>
-                        <div className="create-div">
-                            <p>End date *(optional)</p>
-                            <div className="calendar-background">
-                                <DayPicker onDayClick={this.handleDateClick}/>
-                            </div>
+                        <p>End date *(optional)</p>
+                        <div className="calendar-background">
+                            <DayPicker onDayClick={this.handleDateClick}/>
                         </div>
-                        <RadioGroup
+                        <p>Select a category</p>
+                        <RadioGroup className={classes.category}
                             onChange={this.onChange}
                             value={this.state.category}
                             name="category"

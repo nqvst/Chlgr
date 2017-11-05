@@ -15,11 +15,15 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 import Home from "./Home";
+import firebaseConnect from '../firebase/FirebaseConnect.js';
 
 import AppBar from './AppBar';
 
 const styles = {
     container: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         maxWidth: '700px',
         margin: '0 auto',
         marginTop: '50 px',
@@ -28,9 +32,14 @@ const styles = {
 }
 
 class App extends Component {
+
+    componentDidMount() {
+        firebaseConnect(this.props);
+    }
+    
     render() {
 
-        const { classes } = this.props;
+        const { classes, addNewChallengeToState, initialChallengesToState } = this.props;
         return (
             <div className="App">
                 <Router history={this.props.history}>
@@ -51,12 +60,41 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        challenges: state.challenges.authenticated,
+        user: state.auth.user
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(Actions, dispatch)
+        actions: bindActionCreators(Actions, dispatch),
+        
+        addNewChallengeToState: (challenge) => {
+            dispatch({
+              type: "ADDL_NEW_CHALLANGE",
+              payload: challenge
+            })
+          },
+          initialChallengesToState: (challenges) => {
+            dispatch({
+              type: "SET_INITIAL_CHALLANGES",
+              payload: challenges
+            })
+          },
+          deleteChallengeToState: (challenge) => {
+            dispatch({
+              type: "DELETE_CHALLANGE",
+              payload: challenge
+            })
+          },
+          updateChallengeToState: (challenge) => {
+            dispatch({
+              type: "CHANGE_CHALLANGE",
+              payload: challenge
+            })
+          },
+          
     };
 }
 

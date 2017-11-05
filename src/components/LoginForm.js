@@ -3,6 +3,8 @@ import { withStyles } from 'material-ui/styles';
 import Input from 'material-ui/Input';
 import Button from 'material-ui/Button';
 import Card from 'material-ui/Card';
+import { connect } from "react-redux";
+
 
 const styles = theme => ({
     container: {
@@ -34,15 +36,38 @@ class LoginForm extends Component{
         this.props.loginFirebase(this.state.email, this.state.password);
     }
 
+    //creating error messages based on the messeges from Firebase, handled in the ".catch"
+    getErrorMessage = (err) => {
+        let msg = [];        
+        if(err === 'auth/wrong-password'){
+            msg.push('Wrong Password');
+        }
+        if(err === 'auth/user-not-found'){
+            msg.push('User not found');
+        }
+        if(err === 'auth/invalid-email'){
+            msg.push('Invalid email-address');
+        }
+        if(msg.length === 0 && err) {
+            msg.push('Something went wrong.');
+        }
+        return msg;
+    }
+
     render(){
 
-        const {classes} = this.props;
+        const {classes, error} = this.props;
+
+        console.log(error);
+
+        let errorMessage = this.getErrorMessage(error);         
 
         return (
             <div>
                 <h1>Login</h1>
                 <form>
                     <Card className={classes.card}>
+                        {errorMessage.length != 0 &&  errorMessage.map((error) => <p>{error}</p>)}
                         <div className={classes.container}>
                             <Input className={classes.input} placeholder="Email" type="email" name="email" onChange={this.onChange} inputProps={{'aria-label': 'Email',}}/>
                         </div>
@@ -59,4 +84,11 @@ class LoginForm extends Component{
     }
 }
 
-export default withStyles(styles)(LoginForm);
+function mapStateToProps(state) {
+    return {
+        error: state.auth.error,
+    };
+}
+
+
+export default connect( mapStateToProps)(withStyles(styles)(LoginForm));

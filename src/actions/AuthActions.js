@@ -104,7 +104,7 @@ export function logoutFirebase() {
 }   
 
 
-//Add challenge (must also be done to redux!!!)
+//Add challenge
 export function addChallenge(challengeObj) {
 
     //to avoid write firebase.database() all the time in the code, now we can write db instead
