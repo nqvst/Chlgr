@@ -16,7 +16,7 @@ const styles = theme => ({
     },
     cardContent: {
         padding: 0,
-        
+
     },
     avatar: {
         margin: 10,
@@ -43,30 +43,23 @@ const styles = theme => ({
 
 function Challenge(props){
 
-    console.log(props);
-
     const {
         classes,
         endDate,
         category,
         description,
         heading,
-        createdBy, 
+        createdBy,
         onClick,
         acceptedBy,
         user,
         id,
     } = props;
 
-
-    console.log(user);
-
     let accepted = false;
     if (user) {
         accepted = toArray(acceptedBy).find((accepted) => {
-            console.log(accepted);
-            console.log(user);
-            if(accepted.value.userId === user.userId){
+            if(accepted.userId === user.userId){
                 return true;
             }else {
                 return false;

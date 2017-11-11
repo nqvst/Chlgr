@@ -14,12 +14,11 @@ export function addComment(commentObj) {
                 type: "ADD_COMMENT_SUCCESS",
             })
         })
-        .catch(error => { 
+        .catch(error => {
             dispatch({
                 type: "ADD_COMMENT_ERROR",
                 payload: error,
             })
-            console.log(error)
-        });  
+        });
     }
 }

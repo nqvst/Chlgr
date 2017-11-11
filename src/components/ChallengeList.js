@@ -6,6 +6,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Challenge from './Challenge.js';
 import { acceptChallenge } from '../actions/ChallengeActions.js';
 import CreateComment from '../containers/CreateComment.js';
+import { CircularProgress } from 'material-ui/Progress';
 
 
 const styles = theme => ({
@@ -27,11 +28,8 @@ class ChallengeList extends React.Component {
 
     render() {
         const { classes, challenges, user, accept } = this.props;
-
         const challengesList = challenges.map((item, index) => {
-            console.log('challenge:', { item });
-            console.log('user', { user });
-            return <Challenge key={index} {...item.value} id={item.key} user={user} onClick={() => { accept(item, user) }} />
+            return <Challenge key={index} {...item} user={user} onClick={() => { accept(item, user) }} />
         });
 
         return (
@@ -50,8 +48,10 @@ class ChallengeList extends React.Component {
                         <Tab label="social" />
                     </Tabs>
                 </Paper>
-                {challengesList}
-                <CreateComment />
+                {!(challenges && challenges.length > 0) ?
+                    <CircularProgress className={classes.progress} size={50} /> :
+                    challengesList
+                }
             </div>
         );
     }
@@ -72,7 +72,7 @@ function mapDispatchToProps(dispatch) {
                 username: user.username
             }
             const acpChallenge = {
-                challengeId: challenge.key
+                challengeId: challenge.id
             }
             dispatch(acceptChallenge(acpChallenge, userInfo));
         },

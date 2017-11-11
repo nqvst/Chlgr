@@ -32,13 +32,12 @@ class LoginForm extends Component{
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
         this.props.loginFirebase(this.state.email, this.state.password);
     }
 
     //creating error messages based on the messeges from Firebase, handled in the ".catch"
     getErrorMessage = (err) => {
-        let msg = [];        
+        let msg = [];
         if(err === 'auth/wrong-password'){
             msg.push('Wrong Password');
         }
@@ -58,9 +57,7 @@ class LoginForm extends Component{
 
         const {classes, error} = this.props;
 
-        console.log(error);
-
-        let errorMessage = this.getErrorMessage(error);         
+        let errorMessage = this.getErrorMessage(error);
 
         return (
             <div>

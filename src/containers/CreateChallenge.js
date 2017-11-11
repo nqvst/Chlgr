@@ -9,8 +9,6 @@ class CreateChallenge extends Component {
     render() {
         const { authenticated, user, addChallenge } = this.props;
 
-        console.log(this.props.user);
-
         return (
             <div>
                 <CreateChallengeForm onClick={this.props.onClick} addChallenge={this.props.addChallenge} user={this.props.user}/>

@@ -16,7 +16,6 @@ import Logout from "./Logout";
 import Register from "./Register";
 import Home from "./Home";
 import ChallengePage from './ChallengePage';
-import firebaseConnect from '../firebase/FirebaseConnect';
 
 import AppBar from './AppBar';
 
@@ -34,10 +33,7 @@ const styles = {
 
 class App extends Component {
 
-    componentDidMount() {
-        firebaseConnect(this.props);
-    }
-    
+
     render() {
 
         const { classes, initialChallengesToState, challengeAdded, challegeDeleted, challengeChanged } = this.props;
@@ -63,7 +59,6 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        challenges: state.challenges.authenticated,
         user: state.auth.user
     };
 }
@@ -71,32 +66,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(Actions, dispatch),
-
-        initialChallengesToState: (challenges) => {
-            dispatch({
-              type: "SET_INITIAL_CHALLANGES",
-              payload: challenges
-            })
-          },
-        challengeAdded: (challenge) => {
-            dispatch({
-              type: "CHALLANGE_ADDED",
-              payload: challenge
-            })
-          },
-        challegeDeleted: (challenge) => {
-            dispatch({
-              type: "CHALLANGE_DELETED",
-              payload: challenge
-            })
-          },
-        challengeChanged: (challenge) => {
-            dispatch({
-              type: "CHALLANGE_CHANGED",
-              payload: challenge
-            })
-          },
-          
     };
 }
 

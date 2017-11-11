@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {       
+    return {
         loginFirebase: (email, password) => {
             dispatch(loginFirebase(email, password))
         },

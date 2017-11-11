@@ -3,7 +3,8 @@
 export default function toArray(firebaseObj) {
     let array = [];
     for (let item in firebaseObj) {
-        array.push({ key: item, value: firebaseObj[item] }) //här måste man sätta varje enskilt objekt till value för att sen enkelt komma åt alla värden
+        //array.push({ key: item, value: firebaseObj[item] }) //här måste man sätta varje enskilt objekt till value för att sen enkelt komma åt alla värden
+        array.push({ id: item, ...firebaseObj[item] })
     }
     return array;
 }

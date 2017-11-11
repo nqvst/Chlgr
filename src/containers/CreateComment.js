@@ -2,18 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import CreateCommentForm from '../components/CreateCommentForm.js';
-import { addComment } from '../actions/CommentActions.js';
+import { addComment } from '../actions/ChallengeActions.js';
 
 class CreateComment extends Component {
 
     render() {
-        const { authenticated, user, addComment } = this.props;
-
-        console.log(this.props.user);
+        const { authenticated, user, addComment, challengeId } = this.props;
 
         return (
             <div>
-                <CreateCommentForm onClick={this.props.onClick} addComment={this.props.addComment} user={this.props.user}/>
+                <CreateCommentForm onClick={this.props.onClick} addComment={(comment) => {this.props.addComment(comment, challengeId)}} user={this.props.user} />
             </div>
         );
     }
@@ -28,8 +26,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addComment: (commentObj) => {
-            dispatch(addComment(commentObj))
+        addComment: (commentObj, challengeId) => {
+            dispatch(addComment(commentObj, challengeId))
         },
     }
 }

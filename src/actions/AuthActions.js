@@ -22,7 +22,7 @@ export function registerFirebase(email, password, username) {
                         payload: {
                             email: user.email,
                             username: user.displayName,
-                            userId: user.uid,      
+                            userId: user.uid,
                         }
                     })
                 })
@@ -31,7 +31,6 @@ export function registerFirebase(email, password, username) {
                     type: "REGISTER_USER_ERROR",
                     payload: error,
                 })
-                console.log(error)
             });
         });
     }
@@ -47,7 +46,6 @@ export function loginFirebase(email, password) {
             .signInWithEmailAndPassword(email, password)
             .then((user) => {
                 if(user){
-                    console.log(user);
                     dispatch({
                         type: "LOGIN_USER_SUCCESS",
                         payload: {
@@ -63,12 +61,11 @@ export function loginFirebase(email, password) {
                     type: "LOGIN_USER_ERROR",
                     payload: error,
                 });
-                console.log(error)
             });
     }
 }
 
-//Logout user 
+//Logout user
 export function logoutFirebase() {
     return (dispatch) => {
         //signout Firebase
@@ -85,7 +82,6 @@ export function logoutFirebase() {
                 type: "LOGOUT_USER_ERROR",
                 payload:  error,
             })
-            console.log(error)
-        });  
+        });
     }
-}   
+}

@@ -2,15 +2,19 @@ const initialState = {
     all: [],
     loading: false,
     error: null,
+    current: null,
 };
 
 export default function challenges(state = initialState, action) {
-    console.log(state.all);
     switch (action.type) {
-        
+
+        case "SET_CURRENT_CHALLENGE":
+            return {
+                ...state,
+                current: action.payload,
+            };
 
         case "SET_INITIAL_CHALLANGES":
-            console.log('8888888', action.payload)
             return {
                 ...state,
                 all: action.payload
@@ -24,9 +28,7 @@ export default function challenges(state = initialState, action) {
 
         case "CHALLANGE_DELETED":
             let reversedChallegesList = (state.all).filter((item) => {
-                console.log(item.key);
-                console.log(action.payload.key);
-                return item.key !== action.payload.key;
+                return item.id !== action.payload.id;
             })
             return {
                 ...state,
@@ -34,9 +36,8 @@ export default function challenges(state = initialState, action) {
             };
 
         case "CHALLANGE_CHANGED":
-            let updatedChallegesList = (state.all).map((item) => { 
-                console.log(action.payload.val())
-                if(item.key === action.payload.key){ 
+            let updatedChallegesList = (state.all).map((item) => {
+                if(item.id === action.payload.id){
                     return Object.assign({}, item, {value: action.payload.val()}) //Object assign === merge the old object with the new object.
                 } else
                 return item;
@@ -52,7 +53,7 @@ export default function challenges(state = initialState, action) {
                 error: null,
                 loading: true,
             }
-        
+
         case "ADD_CHALLENGE_SUCCESS":
             return {
                 ...state,
@@ -73,7 +74,7 @@ export default function challenges(state = initialState, action) {
                 error: null,
                 loading: true,
             }
-        
+
         case "ACCEPT_CHALLENGE_SUCCESS":
             return {
                 ...state,

@@ -24,9 +24,6 @@ const styles = theme => ({
 function ButtonAppBar(props) {
     const { classes, authenticated, user } = props;
 
-    console.log(authenticated);
-    console.log(user);
-
     return (
         <div className={classes.root}>
             <AppBar position="static">
