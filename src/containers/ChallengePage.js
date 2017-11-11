@@ -53,7 +53,7 @@ class ChallengePage extends Component {
         const { match: { params }, challenge, classes, accept, user } = this.props;
 
         let accepted = false;
-        if (user) {
+        if (user && challenge) {
             accepted = toArray(challenge.acceptedBy).find((accepted) => {
                 if (accepted.userId === user.userId) {
                     return true;

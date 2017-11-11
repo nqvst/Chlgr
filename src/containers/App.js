@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
 import { withStyles } from 'material-ui/styles';
+import {checkAuth} from '../firebase/FirebaseConnect';
 
 import {
     Router,
@@ -32,6 +33,10 @@ const styles = {
 }
 
 class App extends Component {
+
+    componentDidMount() {
+        checkAuth(this.props.auth);
+    }
 
 
     render() {
@@ -66,6 +71,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(Actions, dispatch),
+        auth: (user) => {
+            dispatch({
+                type: "LOGIN_USER_SUCCESS",
+                payload: {
+                    email: user.email,
+                    username: user.displayName,
+                    userId: user.uid,
+                }
+            })
+        },
     };
 }
 
