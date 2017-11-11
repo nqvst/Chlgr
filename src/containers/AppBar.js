@@ -12,58 +12,58 @@ import { Link } from 'react-router-dom'
 
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
+    root: {
+        width: '100%',
+    },
+    flex: {
+        flex: 1,
+    },
 });
 
 
 function ButtonAppBar(props) {
-  const { classes, authenticated, user } = props;
+    const { classes, authenticated, user } = props;
 
-  console.log(authenticated);
-  console.log(user);
- 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          {/* <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+    console.log(authenticated);
+    console.log(user);
+
+    return (
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    {/* <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
             <MenuIcon />
           </IconButton> */}
 
-          <Typography type="title" color="inherit" className={classes.flex}>
-              <Button component={Link} to={'/'} color="contrast">Challenger</Button>
-          </Typography>
+                    <Typography type="title" color="inherit" className={classes.flex}>
+                        <Button component={Link} to={'/'} color="contrast">Challenger</Button>
+                    </Typography>
 
 
 
-          { !authenticated &&
-          <Button component={Link} to={'/login'} color="contrast">Login</Button>
-          }
-          { user &&
-            <p>{user.username}</p>
-          }
-          { authenticated &&
-            <Button component={Link} to={'/logout'} color="contrast">Logout</Button>
-          }
-          { !authenticated &&
-            <Button component={Link} to={'/register'} color="contrast">Register</Button>
-          }
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+                    {!authenticated &&
+                        <Button component={Link} to={'/login'} color="contrast">Login</Button>
+                    }
+                    {user &&
+                        <p>{user.username}</p>
+                    }
+                    {authenticated &&
+                        <Button component={Link} to={'/logout'} color="contrast">Logout</Button>
+                    }
+                    {!authenticated &&
+                        <Button component={Link} to={'/register'} color="contrast">Register</Button>
+                    }
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }
 
 function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    user: state.auth.user
-  }
+    return {
+        authenticated: state.auth.authenticated,
+        user: state.auth.user
+    }
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(ButtonAppBar));

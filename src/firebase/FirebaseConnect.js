@@ -3,43 +3,40 @@ import firebase from "firebase";
 import toArray from '../util/toArray.js';
 
 
-export default function firebaseConnect(props) {  
+export default function firebaseConnect(props) {
 
-  console.log(props);
+    console.log(props);
 
-  const db = firebase.database(); //to avoid write firebase.database() all the time in the code, now we can write db instead
+    const db = firebase.database(); //to avoid write firebase.database() all the time in the code, now we can write db instead
 
-  // To set initialstate, it triggers once and then does not trigger again.
-  db.ref('challenges').once('value').then(function(snapshot) {
-    const challengeList = toArray((snapshot.val()));
-    console.log(challengeList);
-    props.initialChallengesToState(challengeList)
-  });
-  
-  //Listens for when new values/objects adds to the database Firebase. callback returns the added object
-  db.ref('challenges').on('child_added', (snapshot) => {
+    // To set initialstate, it triggers once and then does not trigger again.
+    db.ref('challenges').once('value').then(function (snapshot) {
+        const challengeList = toArray((snapshot.val()));
+        console.log(challengeList);
+        props.initialChallengesToState(challengeList)
+    });
 
-    const newChallenge = {
-      value: snapshot.val(),
-      key: snapshot.key
-    }
-    console.log(newChallenge);
-    props.challengeAdded(newChallenge);      
-  })
+    //Listens for when new values/objects adds to the database Firebase. callback returns the added object
+    db.ref('challenges').on('child_added', (snapshot) => {
 
-  //Listens for when a value/object deletes from the database Firebase. callback returns the deleted object
-  db.ref('challenges').on('child_removed', (snapshot) => {
-    console.log(snapshot);
-    props.challegeDeleted(snapshot)
-  })
+        const newChallenge = {
+            value: snapshot.val(),
+            key: snapshot.key
+        }
+        console.log(newChallenge);
+        props.challengeAdded(newChallenge);
+    })
 
-  //Listens for when values/objects updates/changes in the database Firebase. callback returns the updated object
-  db.ref('challenges').on('child_changed', (snapshot) => {
-    console.log(snapshot);
-    props.challengeChanged(snapshot)      
-  })
+    //Listens for when a value/object deletes from the database Firebase. callback returns the deleted object
+    db.ref('challenges').on('child_removed', (snapshot) => {
+        console.log(snapshot);
+        props.challegeDeleted(snapshot)
+    })
+
+    //Listens for when values/objects updates/changes in the database Firebase. callback returns the updated object
+    db.ref('challenges').on('child_changed', (snapshot) => {
+        console.log(snapshot);
+        props.challengeChanged(snapshot)
+    })
 }
-
-
-
 

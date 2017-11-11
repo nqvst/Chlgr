@@ -11,36 +11,36 @@ import { Link } from 'react-router-dom'
 
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
+    root: {
+        width: '100%',
+    },
+    flex: {
+        flex: 1,
+    },
 });
 
 
 function ButtonAppBar(props) {
     const { classes } = props;
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton component={Link} to={'/'} className={classes.menuButton} color="contrast" aria-label="Menu">
-              <HomeIcon />
-            </IconButton>
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton component={Link} to={'/'} className={classes.menuButton} color="contrast" aria-label="Menu">
+                        <HomeIcon />
+                    </IconButton>
 
-            <Typography type="title" color="inherit" className={classes.flex}>
-                Challenger
+                    <Typography type="title" color="inherit" className={classes.flex}>
+                        Challenger
             </Typography>
 
-            <Button component={Link} to={'/signup'} color="contrast">SignUp</Button>
-            <Button component={Link} to={'/login'} color="contrast">Login</Button>
+                    <Button component={Link} to={'/signup'} color="contrast">SignUp</Button>
+                    <Button component={Link} to={'/login'} color="contrast">Login</Button>
 
-          </Toolbar>
-        </AppBar>
-      </div>
+                </Toolbar>
+            </AppBar>
+        </div>
     );
-  }
+}
 
 export default withStyles(styles)(ButtonAppBar);
