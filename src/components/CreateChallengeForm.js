@@ -108,7 +108,8 @@ class CreateChallengeForm extends Component{
                 description: this.state.description,
                 createdBy: this.props.user.username,
                 category: this.state.category,
-                endDate: this.state.endDay
+                endDate: this.state.endDay,
+                createdAt: Date.now(),
             }
             //call firebase function 'addChallenge' in AuthAction and pass in the challenge obj. 
             this.props.addChallenge(challengeObj);

@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import toArray from '../util/toArray.js';
+import { Link } from 'react-router-dom'
 
 
 
@@ -42,6 +43,8 @@ const styles = theme => ({
 
 function Challenge(props){
 
+    console.log(props);
+
     const {
         classes,
         endDate,
@@ -51,7 +54,8 @@ function Challenge(props){
         createdBy, 
         onClick,
         acceptedBy,
-        user
+        user,
+        id,
     } = props;
 
 
@@ -78,39 +82,41 @@ function Challenge(props){
     }
 
     return(
-        <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-                <div className={classes.category}>
+        <Link to={`/c/${id}`}>
+            <Card className={classes.card}>
+                <CardContent className={classes.cardContent}>
+                    <div className={classes.category}>
+                        {category}
+                    </div>
+                    { createdBy.image ?
+                        <Avatar className={classes.avatar} src={createdBy.image} alt={createdBy}/> :
+                        <Avatar className={classes.avatar}>{createdBy[0]}</Avatar>
+                    }
+                    <Typography type="headline" component="h2">
+                    {heading}
+                    </Typography>
                     {category}
-                </div>
-                { createdBy.image ?
-                    <Avatar className={classes.avatar} src={createdBy.image} alt={createdBy}/> :
-                    <Avatar className={classes.avatar}>{createdBy[0]}</Avatar>
-                }
-                <Typography type="headline" component="h2">
-                {heading}
-                </Typography>
-                {category}
-                <Typography type="body1" className={classes.title}>
-                    {description}
-                </Typography>
+                    <Typography type="body1" className={classes.title}>
+                        {description}
+                    </Typography>
 
-            </CardContent>
-            <CardActions className={classes.actions}>
-                <p>
-                    end date: {endDateString}
-                </p>
-                <p>
-                    acceptedBy: {toArray(acceptedBy).length}
-                </p>
-                {!accepted && user &&
-                    <Button color="primary" onClick={onClick}> Accept</Button>
-                }
-                {accepted && user &&
-                    <p>Accepted</p>
-                }
-        </CardActions>
-        </Card>
+                </CardContent>
+                <CardActions className={classes.actions}>
+                    <p>
+                        end date: {endDateString}
+                    </p>
+                    <p>
+                        acceptedBy: {toArray(acceptedBy).length}
+                    </p>
+                    {!accepted && user &&
+                        <Button color="primary" onClick={onClick}> Accept</Button>
+                    }
+                    {accepted && user &&
+                        <p>Accepted</p>
+                    }
+            </CardActions>
+            </Card>
+        </Link>
     );
 }
 

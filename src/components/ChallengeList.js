@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Challenge from './Challenge.js';
 import {acceptChallenge} from '../actions/ChallengeActions.js';
+import CreateComment from '../containers/CreateComment.js';
+
 
 const styles = theme => ({
   root: {
@@ -29,7 +31,7 @@ class ChallengeList extends React.Component {
     const challengesList = challenges.map((item, index) => {
       console.log('challenge:', {item});
       console.log('user',{user});
-      return <Challenge key={index} {...item.value} user={user} onClick={() => {accept(item, user)}}/>
+      return <Challenge key={index} {...item.value} id={item.key} user={user} onClick={() => {accept(item, user)}}/>
     });
 
     return (
@@ -51,6 +53,7 @@ class ChallengeList extends React.Component {
         <ul>
           {challengesList}
         </ul>
+        <CreateComment/>
       </div>
     );
   }

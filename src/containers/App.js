@@ -15,7 +15,8 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 import Home from "./Home";
-import firebaseConnect from '../firebase/FirebaseConnect.js';
+import ChallengePage from './ChallengePage';
+import firebaseConnect from '../firebase/FirebaseConnect';
 
 import AppBar from './AppBar';
 
@@ -51,6 +52,7 @@ class App extends Component {
                             <Route path="/logout" component={Logout} />
                             <Route path="/register" component={Register} />
                             <Route path="/profile" component={Profile} />
+                            <Route path="/c/:id" component={ChallengePage} />
                         </div>
                     </div>
                 </Router>
